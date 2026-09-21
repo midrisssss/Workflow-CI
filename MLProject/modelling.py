@@ -34,4 +34,8 @@ with mlflow.start_run() as run:
         artifact_path="model"
     )
 
-    print(f"CI Retraining Completed. Run ID: {run.info.run_id}, Accuracy: {acc:.4f}")
+    run_id = run.info.run_id
+    with open(os.path.join(base_dir, "run_id.txt"), "w") as f:
+        f.write(run_id)
+
+    print(f"CI Retraining Completed. Run ID: {run_id}, Accuracy: {acc:.4f}")

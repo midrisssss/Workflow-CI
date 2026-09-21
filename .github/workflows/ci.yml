@@ -33,9 +33,9 @@ jobs:
 
       - name: Build Docker Image using MLflow
         run: |
-          RUN_ID=$(python -c "import mlflow; client = mlflow.tracking.MlflowClient(); exp = client.get_experiment_by_name('CI_Retraining_Workflow'); runs = client.search_runs(exp.experiment_id); print(runs[0].info.run_id)")
+          cd MLProject
+          RUN_ID=$(cat run_id.txt)
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
-          
           mlflow models build-docker -m "runs:/$RUN_ID/model" -n "${{ secrets.DOCKERHUB_USERNAME }}/wine-quality-model:latest" --enable-mlserver
 
       - name: Log in to Docker Hub
