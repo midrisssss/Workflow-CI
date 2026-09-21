@@ -31,8 +31,7 @@ with mlflow.start_run() as run:
 
     mlflow.sklearn.log_model(
         sk_model=model, 
-        artifact_path="model", 
-        skops_trusted_types=["sklearn.tree._tree.Tree"]
+        artifact_path="model"
     )
 
     print(f"CI Retraining Completed. Run ID: {run.info.run_id}, Accuracy: {acc:.4f}")
